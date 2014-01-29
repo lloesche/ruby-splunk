@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), '../lib'))
+
+require 'yaml'
+require 'conversis/splunk'
+
+config = Conversis::Splunk::Config.new()
+splunk = Conversis::Splunk::Client.new(host: config.splunk_server, username: config.splunk_login, password: config.splunk_password)
+
+splunk_query = ARGV.join(' ')
+
+$stderr.puts "executing search: '#{splunk_query}'"
+search_id = splunk.search("search #{splunk_query}")
+
+$stderr.puts "waiting for search with id #{search_id}"
+splunk.wait_for(search_id)
+
+results = splunk.results(search_id)
+results['results'].each do |result|
+  puts YAML.dump(result)
+end

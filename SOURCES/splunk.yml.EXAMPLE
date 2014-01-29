@@ -1,0 +1,4 @@
+production:
+  splunk_server: splunk-services.gamigo.com
+  splunk_login: lukas
+  splunk_password: changeme

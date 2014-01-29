@@ -1,0 +1,24 @@
+require 'rubygems'
+require 'rubygems/package_task'
+
+spec = Gem::Specification.new do |spec|
+  spec.name = 'conversis-splunk'
+  spec.summary = 'tools to access Splunk'
+  spec.description = <<-TEXT
+These tools provide access to Splunk
+  TEXT
+  spec.author = 'Lukas Loesche'
+  spec.email = 'l.loesche@conversis.de'
+  spec.homepage = 'http://www.conversis.de/'
+  spec.files = Dir['lib/**/*.rb']
+  spec.bindir = 'bin'
+
+  spec.executables << 'splunksearch'
+
+  spec.version = '0.0.1'
+end
+
+Gem::PackageTask.new(spec) do |pkg|
+  pkg.need_zip = false
+  pkg.need_tar = false
+end
